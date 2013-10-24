@@ -34,7 +34,7 @@ class SaveDat():
     def readHeader(self):
         # Make sure we are at the start of the file
         self.fh.seek(0)
-        signature = unpack('24s', fh.read(0x18));
+        signature = unpack('24s', self.fh.read(0x18));
         if signature[0] != 'FALLOUT SAVE FILE\x00\x00\x00\x00\x00\x00\x00':
             print "*** Not a save.dat file!"
             return False
@@ -43,7 +43,7 @@ class SaveDat():
         self.save_month = [0,0]
         self.save_year = [0,0]
     
-        self.version = unpack ('4B', fh.read(0x04))
+        self.version = unpack ('4B', self.fh.read(0x04))
         self.fh.read(1) # skip the letter r
         self.player_name, self.save_name,self.save_day[0],self.save_day[1], self.save_month[0],self.save_month[1],\
             self.save_year[0],self.save_year[1] = unpack('32s30s2B2B2B', self.fh.read(0x44))
